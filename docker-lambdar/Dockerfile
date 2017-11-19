@@ -15,6 +15,7 @@ MAINTAINER Henrik Bengtsson "henrikb@braju.com"
 ENV R_VERSION=3.3.2
 ENV R_READLINE=yes
 ENV R_PREFIX=/tmp/r/${R_VERSION}
+ENV R_BIOC_VERSION=3.4
 
 RUN yum install -y gcc-gfortran
 RUN yum install -y libgfortran     # Otherwise ld error duing 'make'
@@ -38,6 +39,5 @@ RUN cd /tmp/R-${R_VERSION}; make install
 RUN mkdir ${R_PREFIX}/lib64/R/site-library  ## Where to install packages
 
 ENV PATH=${R_PREFIX}/bin:${PATH}
-ENV R_BIOC_VERSION=3.4
 RUN echo "R_BIOC_VERSION=${R_BIOC_VERSION}" >> ~/.Renviron
 RUN echo "options(repos = c(CRAN='https://cloud.r-project.org', BioCsoft='https://bioconductor.org/packages/${R_BIOC_VERSION}/bioc', BioCann='https://bioconductor.org/packages/${R_BIOC_VERSION}/data/annotation', BioCexp='https://bioconductor.org/packages/${R_BIOC_VERSION}/data/experiment', BioCextra='https://bioconductor.org/packages/${R_BIOC_VERSION}/extra'))" >> ~/.Rprofile
